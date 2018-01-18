@@ -1,3 +1,5 @@
+# Rocco incluye aquí qué hace este script
+
 # Libraries
 require(rgdal)
 require(raster)
