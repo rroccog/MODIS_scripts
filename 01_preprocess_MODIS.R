@@ -1,5 +1,4 @@
-# Rocco incluye aquí qué hace este script
-# probando vfasdf
+# Script para transformar .hdf a .tif las bandas 1, 2, 3 y 12
 
 # Libraries
 require(rgdal)
@@ -8,9 +7,11 @@ library(gdalUtils)
 library(parallel)
 rasterOptions(tmpdir="~/temp")
 
-rawfolders <- list.files("~/MODIS_ARC/rawdata", full.names = T)
-outfolders <- list.files("~/MODIS_ARC/PROCESSED", full.names = T)
+rawfolders <- list.files("~/MODIS_ARC/rawdata", full.names = T)   # ocho carpetas con tiles (h11v10, h11v11, ... , h14v14)
+outfolders <- list.files("~/MODIS_ARC/PROCESSED", full.names = T) # ocho carpetas con tiles (h11v10, h11v11, ... , h14v14)
 coor <- read.csv("~/MODIS_ARC/coordenadas_tiles.csv")
+infiles <- list.files(path=rawfolders[1], pattern=glob2rx("*.hdf"), full.names=T)
+sceneID <- substr(infiles, 42,57)
 
 # define output projection
 
@@ -19,7 +20,7 @@ newproj <- "+proj=utm +zone=19 +south +ellps=WGS84 +units=m +no_defs"
 
 for (j in 1:length(rawfolders)){
   infiles <- list.files(path=rawfolders[j], pattern=glob2rx("*.hdf"), full.names=T)
-  sceneID <- substr(infiles, 42,57)
+  sceneID <- substr(infiles, 42,57) ################################################################ editar acá 
   outfiles <- paste(outfolders[j], '/', sceneID, '.tiff', sep='')
   setwd(outfolders)
   ext <- c(coor$xmin[j], coor$xmax[j], coor$ymax[j], coor$ymin[j])
