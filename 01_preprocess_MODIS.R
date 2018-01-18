@@ -1,4 +1,4 @@
-# Script para transformar .hdf a .tif las bandas 1, 2, 3 y 12
+# Script para transformar .hdf a .tif las bandas 1, 2, 3 y 12, necesita leer una tabla "coordenadas_tiles.csv"
 
 # Libraries
 require(rgdal)
